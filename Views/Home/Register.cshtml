@@ -1,0 +1,94 @@
+﻿@model TestCrud.Models.Users
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<!-- BEGIN LOGIN -->
+<div class="content">
+    <!-- BEGIN LOGIN FORM -->
+
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+
+
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="~/imgs/LogoAmedia.jfif"
+                         class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
+                    @if (Model.ErrorExists)
+                    {
+                        <div class="bg-warning">
+                            <label class="text-danger"> ¡Error al registrarse! - @Model.msgError</label>
+
+                        </div>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                            Intentar nuevamente <a href="../Home/Register"
+                                                   class="link-danger">Registro</a>
+                        </p>
+                    }
+                    else if (!Model.Confirm && !Model.ErrorExists)
+                    {
+                        <form method="post" id="formRegister" asp-controller="Home" asp-action="SignUp" defaultfocus="formName">
+
+                            <!-- Name input -->
+                            <div class="form-outline mb-4">
+                                @Html.LabelFor(model => model.Name, "Nombre y apellido", htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "text", required = "required", maxLength = "20", placeholder = "Nombre y apellido" } })
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                @Html.LabelFor(model => model.Email, "Usuario", htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "text", required = "required", maxLength = "20", placeholder = "Mail" } })
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-3">
+                                @Html.LabelFor(model => model.Password, "Contraseña", htmlAttributes: new { @class = "form-label" })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "password", required = "required", maxLength="20", placeholder = "Contraseña" } })
+                            </div>
+
+
+                            <!-- Profile input -->
+                            <div class="form-outline mb-3">
+                                @Html.LabelFor(model => model.Profile, "Tipo de usuario", htmlAttributes: new { @class = "form-label" })
+                                @Html.DropDownListFor(model => model.Profile, new SelectList(Model.listProfiles, "Usersid", "Description"), htmlAttributes: new { @class = "form_select" })
+                            </div>
+                            <label class="text-danger" id="lblError"></label>
+
+                            <div class="text-center text-lg-start mt-4 pt-2">
+                                <button type="button" id="btnSignUp" class="btn btn-primary btn-lg"
+                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                    Registrarse
+                                </button>
+
+                            </div>
+
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="bg-success">
+                            <label class="text-white" style="text-align:center;"> ¡Registrado Correctamente!</label>
+                        </div>
+                    }
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                            ¿Ya te has registrado? <a href="../Home/Index"
+                                                      class="link-danger">Ir al Login</a>
+                        </p>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- END LOGIN FORM -->
+
+</div>
+<!-- BEGIN LOGO -->

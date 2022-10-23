@@ -1,0 +1,107 @@
+﻿@model TestCrud.Models.Users
+
+@{
+    ViewData["Title"] = "Menú Admin";
+}
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Add">Cargar nuevo</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+@if (Model.ErrorExists)
+{
+    <div class="bg-warning">
+        <label class="text-danger"> ¡Error al modificar! - @Model.msgError</label>
+
+    </div>
+}
+
+@if (Model.Confirm)
+{
+    <div class="bg-success">
+        <label class="text-white" style="text-align:center;"> ¡Editado Correctamente!</label>
+    </div>
+}
+
+
+
+
+<div class="row">
+    <div class="table-container">
+        <table id="tableUsers" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Perfil</th>
+                    <th scope="col">Fecha creacion</th>
+                    <th scope="col">Activo</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Cambiar Estado</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.UserLists)
+                {
+                    <tr>
+                        <td>
+                            @obj.Name
+                        </td>
+                        <td>
+                            @obj.Email
+                        </td>
+                        @if (obj.Profile == 1)
+                        {
+                            <td>
+                                Admin
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Visitor
+                            </td>
+                        }
+                        <td>
+                            @obj.CreateDate.ToShortDateString()
+                        </td>
+                        @if (obj.IsActive == true)
+                        {
+                            <td>
+                                Activo
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Inactivo
+                            </td>
+                        }
+                        <td>
+                            <button class="button--text-blue" onclick="edit(@obj.Id)">Editar</button>
+                        </td>
+                        <td>
+                            <button class="button--text-blue" onclick="changeState(@obj.Id)">Modificar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<br />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<script src="~/js/site.js"></script>

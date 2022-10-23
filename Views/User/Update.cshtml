@@ -1,0 +1,63 @@
+﻿@model TestCrud.Models.Users
+@{
+    ViewData["Title"] = "Modificacion Usuario";
+}
+
+<form method="post" id="formUpdate" asp-controller="User" asp-action="ConfirmUpdate" defaultfocus="formName">
+
+    <div class="row">
+        <div class="col-md-2">
+
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+                @Html.LabelFor(model => model.Id, "Id", htmlAttributes: new { @class = "form-label" })
+                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "text", @readonly = "readonly", required = "required" } })
+            </div>
+        </div>
+        <div class="col-md-10">
+
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+                @Html.LabelFor(model => model.Name, "Nombre y apellido", htmlAttributes: new { @class = "form-label" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "text", required = "required", maxLength = "20", placeholder = "Nombre y apellido" } })
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    @Html.LabelFor(model => model.Email, "Usuario", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "text", required = "required", maxLength = "20", placeholder = "Mail" } })
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                    @Html.LabelFor(model => model.Password, "Contraseña", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control form-control-lg", data_type = "password", required = "required", maxLength = "20", placeholder = "Contraseña" } })
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Profile input -->
+        <div class="form-outline mb-3">
+            @Html.LabelFor(model => model.Profile, "Tipo de usuario", htmlAttributes: new { @class = "form-label" })
+            @Html.DropDownListFor(model => model.Profile, new SelectList(Model.listProfiles, "Usersid", "Description"), htmlAttributes: new { @class = "form_select" })
+        </div>
+        <label class="text-danger" id="lblError"></label>
+
+        <div class="text-center text-lg-start mt-4 pt-2">
+
+            <button type="button" id="btnConfirmUpdate" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                Modificar
+            </button>
+
+        </div>
+
+</form>
+
+<script src="~/js/site.js"></script>
